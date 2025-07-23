@@ -3,10 +3,10 @@ description: Run SAST scan using endor-cli-tools on source code changes
 globs: '**/*'
 alwaysApply: true
 ---
-# Static Application Security Testing (SAST) Rule
 Whenever a supported source code file is modified:
-1. Run `endor-cli-tools` using the `scan` tool with scan_types of `vulnerabilities`. Always set the path parameter to the root of the repository.
+1. Run the MCP server function `mcp_endor-cli-tools_scan` with scan_types of `["vulnerabilities"]`. Always set the path parameter to the root of the repository.
 2. If any vulnerabilities are found:
    - Present the issues to the user.
    - Recommend appropriate fixes (e.g., input sanitization, validation, escaping, secure APIs).
 3. Continue scanning until all critical issues have been resolved.
+4. If the scan fails due to host-check or other issues, note the failure but continue with the task.

@@ -3,12 +3,12 @@ alwaysApply: true
 ---
 # Software Composition Analysis Rule
 Whenever you add or modify a dependency in any of the manifest files:
-1. Run `endor-cli-tools` using the `check_dependency_for_vulnerabilities` tool.
-2. Provide the **language**, **dependency name**, and **version**.
+1. Run the MCP server function `mcp_endor-cli-tools_check_dependency_for_vulnerabilities`.
+2. Provide the **ecosystem** (e.g., "pypi", "npm"), **dependency name**, and **version**.
 3. If the tool identifies a vulnerability:
   - Upgrade to the suggested safe version
 At the **end of every agent session**:
-1. Run `endor-cli-tools` using the `scan` tool with scan_types of `dependencies` and set the path parameter to the root of the repository.
+1. Run the MCP server function `mcp_endor-cli-tools_scan` with scan_types of `["dependencies"]` and set the path parameter to the root of the repository.
 2. If any findings are returned:
   - Review and fix each issue using the upgrade advice.
   - Ask the user to re-test their application to make sure the upgrades were successful.
