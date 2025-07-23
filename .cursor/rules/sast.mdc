@@ -3,10 +3,12 @@ description: Run SAST scan using endor-cli-tools on source code changes
 globs: '**/*'
 alwaysApply: true
 ---
-Whenever a supported source code file is modified:
-1. Run the MCP server function `mcp_endor-cli-tools_scan` with scan_types of `["vulnerabilities"]`. Always set the path parameter to the root of the repository.
-2. If any vulnerabilities are found:
+Whenever a source code file is modified:
+1. First, get the current working directory by running `pwd` command to obtain the absolute workspace path
+2. Run the MCP server function `mcp_endor-cli-tools_scan` with scan_types of `["vulnerabilities"]`. 
+   - Use the absolute path obtained from the `pwd` command as the path parameter
+   - Never use relative paths like "." as they may resolve to incorrect parent directories
+3. If any vulnerabilities are found:
    - Present the issues to the user.
    - Recommend appropriate fixes (e.g., input sanitization, validation, escaping, secure APIs).
-3. Continue scanning until all critical issues have been resolved.
-4. If the scan fails due to host-check or other issues, note the failure but continue with the task.
+4. Continue scanning until all critical issues have been resolved.
