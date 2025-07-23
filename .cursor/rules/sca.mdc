@@ -1,10 +1,8 @@
 ---
-description: Run SCA scans using endor-cli-tools on manifest file changes
-globs: pom.xml, build.gradle, build.gradle.kts, go.mod, pyproject.toml, package.json, Gemfile, .csproj, BUILD.bazel, MODULE.bazel, Package.swift, build.sbt, composer.json, Cargo.toml, requirements.txt
-alwaysApply: false
+alwaysApply: true
 ---
 # Software Composition Analysis Rule
-Whenever you add or modify a dependency in any of the files:
+Whenever you add or modify a dependency in any of the manifest files:
 1. Run `endor-cli-tools` using the `check_dependency_for_vulnerabilities` tool.
 2. Provide the **language**, **dependency name**, and **version**.
 3. If the tool identifies a vulnerability:
