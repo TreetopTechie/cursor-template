@@ -1,16 +1,16 @@
 ---
-description: Ensure newly added dependencies are checked for vulnerabilities and project stays clean
-globs: '**/package.json, **/package-lock.json, **/yarn.lock, **/pnpm-lock.yaml, **/requirements.txt, **/Pipfile, **/Pipfile.lock, **/pyproject.toml, **/poetry.lock, **/go.mod, **/go.sum, **/Cargo.toml, **/Cargo.lock, **/pom.xml, **/build.gradle, **/build.gradle.kts, **/gradle.lockfile, **/composer.json, **/composer.lock'
-alwaysApply: true
+description: Run SCA scans using endor-cli-tools on manifest file changes
+globs: pom.xml, build.gradle, build.gradle.kts, go.mod, pyproject.toml, package.json, Gemfile, .csproj, BUILD.bazel, MODULE.bazel, Package.swift, build.sbt, composer.json, Cargo.toml, requirements.txt
+alwaysApply: false
 ---
-# Dependency Vulnerability Rule
-Whenever you add or modify a dependency in any of the files above:
-- Run `endor-cli-tools` using the `check_dependency_for_vulnerabilities` tool.
-- Provide the **language**, **dependency name**, and **version**.
-- If the tool identifies a vulnerability:
+# Software Composition Analysis Rule
+Whenever you add or modify a dependency in any of the files:
+1. Run `endor-cli-tools` using the `check_dependency_for_vulnerabilities` tool.
+2. Provide the **language**, **dependency name**, and **version**.
+3. If the tool identifies a vulnerability:
   - Upgrade to the suggested safe version
 At the **end of every agent session**:
-- Run `endor-cli-tools` using the `scan` tool with scan_types of `dependencies`. Always set the path parameter to the root of the repository.
-- If any findings are returned:
-  - Review and fix each issue using the upgrade advice from Endor Labs.
+1. Run `endor-cli-tools` using the `scan` tool with scan_types of `dependencies` and set the path parameter to the root of the repository.
+2. If any findings are returned:
+  - Review and fix each issue using the upgrade advice.
   - Ask the user to re-test their application to make sure the upgrades were successful.
